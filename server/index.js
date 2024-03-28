@@ -1,10 +1,11 @@
+// index.js or app.js
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
-const truckRoutes = require('./routes/truckRoutes');
-
+const User = require('./models/User');
 
 dotenv.config();
 const app = express();
@@ -24,7 +25,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
-app.use('/api/trucks', truckRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
