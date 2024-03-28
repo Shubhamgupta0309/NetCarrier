@@ -1,11 +1,10 @@
-// index.js or app.js
+// index.js
 
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
-const User = require('./models/User');
 
 dotenv.config();
 const app = express();
@@ -24,6 +23,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.use(bodyParser.json());
 
+// Routes
 app.use('/api/auth', authRoutes);
 
 app.listen(port, () => {

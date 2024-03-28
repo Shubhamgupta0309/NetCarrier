@@ -12,9 +12,7 @@
 	<meta property="og:title" content="NetCarrier - SMART PLATFORM for digitalization and reducing transportation costs" />
 	<meta property="og:description" content="NetCarrier Enterprise provides AI, BI, MI digital platform enabling companies to arrange and optimize shipments in all transport modes to reduce costs." />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-	<!-- / Yoast SEO plugin. -->
-
+	
 
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.trucknet.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.4.3"}};
@@ -227,6 +225,8 @@ html[lang="he"] .page-id-9180 [data-id="4e578f70"]{
     direction:ltr;
 }
 body{
+	
+
     margin:0 !important;
 }
 .eael-simple-menu-toggle-text{
@@ -1053,27 +1053,7 @@ html[dir="rtl"] .elementor-kit-5 {
     	margin: 0 auto 2rem;
 	}
 }</style>
-<!-- end Simple Custom CSS and JS -->
-<!-- start Simple Custom CSS and JS -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var currentUrl = window.location.href;
 
-    if (currentUrl.includes('/he')) {
-        var headerButtonContainer = document.getElementById('headerctabtn');
-
-        if (headerButtonContainer) {
-            var headerButton = headerButtonContainer.querySelector('a');
-
-            if (headerButton) {
-                headerButton.setAttribute('href', "login.html");
-            }
-        }
-    }
-});
-</script>
-<!-- end Simple Custom CSS and JS -->
-<!-- start Simple Custom CSS and JS -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var elements = document.querySelectorAll('.elementor-element-7c94505');
@@ -1081,8 +1061,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.forEach(function(element) {
         var language = element.closest('[lang]').getAttribute('lang');
 
-        // Проверяем язык и присваиваем стиль с задержкой
-        if (language.toLowerCase() !== 'he') { // "he" - код языка для Hebrew
+        if (language.toLowerCase() !== 'he') {
             element.style.display = 'none';
         } else {
             setTimeout(function() {
@@ -1270,16 +1249,33 @@ body.pojo-a11y-focusable a:focus{ outline-style: solid !important;	outline-width
 				<div class="elementor-widget-container">
 			        <div class="eael-creative-button-wrapper">
 
-            <a class="eael-creative-button eael-creative-button--default" href="login.html" data-text="">
-
-	    
-                <div class="creative-button-inner">
-
-                    
-                    <span class="cretive-button-text">Login</span>
-
-                                    </div>
-	                        </a>
+						<a id="loginButton" class="eael-creative-button eael-creative-button--default" href="#" data-text="">
+							<div class="creative-button-inner">
+								<span class="cretive-button-text">Login</span>
+							</div>
+						</a>
+						
+						<script src="https://cdn.auth0.com/js/lock/11.28.1/lock.min.js"></script>
+						<script>
+						  // Initialize Auth0 Lock
+						  var lock = new Auth0Lock('DDd3V7ghzM6yA4u6QmxIy0Xx2xXURigS', 'dev-u80nmwvps65pcjw0.us.auth0.com', {
+							auth: {
+							  redirectUrl: 'http://localhost:5500/callback', // Redirect URL after authentication
+							  responseType: 'token id_token',
+							  audience: 'https://dev-u80nmwvps65pcjw0.us.auth0.com/api/v2/', // Specify your API identifier
+							  params: {
+								scope: 'openid profile email' // Requested scopes
+							  }
+							}
+						  });
+						
+						  // Add click event listener to the login button
+						  document.getElementById('loginButton').addEventListener('click', function(event) {
+							event.preventDefault(); // Prevent default link behavior
+							lock.show(); // Show the login dialog
+						  });
+						</script>
+						
         </div>
 		</div>
 				</div>
@@ -2236,6 +2232,6 @@ var wpformsElementorVars = {"captcha_provider":"recaptcha","recaptcha_type":"v2"
 									</div>
 			</div>
 		</nav>
-
+		
 </body>
 </html>
