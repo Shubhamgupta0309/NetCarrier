@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>NetCarrier Sign-Up </title>
+    <title>NetCarrier Sign-Up</title>
 
     <link rel="icon" href="./assets/icon.png" sizes="32x32" />
     <link rel="icon" href="./assets/icon.png" sizes="192x192" />
@@ -17,51 +17,67 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 </head>
 
-    <body class="h-100">
-        <div class="container-fluid full-bg h-100">
-           <div class="container h-100">
-              
-               <div class="row no-margin">
-                   <div class="bg-layer  ">
-                       <form action="#">
+<body class="h-100">
+    <div class="container-fluid full-bg h-100">
+        <div class="container h-100">
+            <div class="row no-margin">
+                <div class="bg-layer  ">
+                    <form id="registrationForm" action="/signup" method="POST">
                         <div class="login-box row">
-                           <i class="fab fa-codepen"></i>
+                            <i class="fab fa-codepen"></i>
                             <h3>User Registration</h3>
                             <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
-                              </div>
-                              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                              </div>
-                              <input type="password" class="form-control form-control-sm" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" class="form-control form-control-sm" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                             </div>
-
-                            
-                            <p>
-                            
-                            forget password ?</p>
-                            <button class="btn btn-default"><a href="index.html">Click to Register</a></button>
-                            
+                            <button type="submit" class="btn btn-default">Click to Register</button>
+                            <p id="registrationErrorMessage" style="color: red; margin-top: 10px;"></p>
+                            <p>Forget password?</p>
                             <p class="no-c">Already a member? <a href="login.html">Login your Account</a></p>
                         </div>
-                        </form>
-                    </div>    
-               </div>
-              
-        
-           </div>
-            
+                    </form>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
 
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>        
-<script src="assets/js/script.js"></script>
-
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+      $(document).ready(function () {
+          $('#registrationForm').submit(function (event) {
+              event.preventDefault();
+              var formData = $(this).serialize();
+              $.ajax({
+                  type: "POST",
+                  url: "http://localhost:3000/signup", // Update the URL to your server signup endpoint
+                  data: formData,
+                  success: function (response) {
+                      console.log(response);
+                      // Handle success response
+                      alert('Registration successful');
+                      console.log('Before redirection'); // Log before redirection
+                      window.location.href = 'index.html'; // Redirect to dashboard or any other page
+                      console.log('After redirection'); // Log after redirection (shouldn't appear if redirection occurs)
+                  },
+                  error: function (xhr, status, error) {
+                      console.error(xhr.responseText);
+                      $('#registrationErrorMessage').text(xhr.responseText);
+                  }
+              });
+          });
+      });
+    </script>  
+</body>
 
 </html>
