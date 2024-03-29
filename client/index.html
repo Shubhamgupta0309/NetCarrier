@@ -917,6 +917,24 @@
              }
          });
       </script>
+      <script>
+         function checkServerStatus() {
+             fetch('http://localhost:3000/api/data')
+             .then(response => {
+                 if (response.ok) {
+                     console.log('Server is connected.');
+                 } else {
+                     console.log('Server is not connected.');
+                 }
+             })
+             .catch(error => {
+                 console.error('Error connecting to server:', error);
+                 console.log('Server is not connected.');
+             });
+         }
+ 
+         window.addEventListener('load', checkServerStatus);
+     </script>
       <!-- end Simple Custom CSS and JS -->
       <!-- start Simple Custom CSS and JS -->
       <script>
@@ -947,7 +965,7 @@
                  document.querySelector('.elementor-element-b89b639').style.display = 'block';
              } else {
                  // В противном случае делаем наоборот: скрываем блок с классом elementor-element-b89b639 и показываем блок с классом elementor-element-381602e3
-                 document.querySelector('.elementor-element-b89b639').style.display = 'none';
+                 //document.querySelector('.elementor-element-b89b639').style.display = 'none';
                  document.querySelector('.elementor-element-381602e3').style.display = 'block';
              }
          }
