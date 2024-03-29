@@ -1476,7 +1476,7 @@
                     height: 100vh;
                 }
                 .container {
-                    max-width: 350px;
+                    max-width: 450px;
                     background: #F8F9FD;
                     background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
                     border-radius: 40px;
@@ -1538,6 +1538,14 @@
                     transform: scale(0.95);
                     box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
                 }
+
+                #map {
+            width: 500px;
+            height: 400px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
             </style>
 
         <div>
@@ -1554,49 +1562,88 @@
                         <input type="text" class="input" id="user_phone" name="user_phone" placeholder="Phone Number" required>
                         <input type="text" class="input" id="user_source" name="user_source" placeholder="Source Location" required>
                         <input type="text" class="input" id="user_destination" name="user_destination" placeholder="Destination Location" required>
+                        <input type="date" class="input" id="user_date" name="user_date" placeholder="Date" required>
                         <textarea class="input" id="user_message" name="user_message" placeholder="Message" required></textarea>
                         <button type="submit" class="login-button">Submit</button>
                     </form>
+                </br>
+            </br>
                 </div>
             </div>
+           
         </section>
     
         <section id="userDetails" style="display: none;">
-            <div class="container">
+            <div class="container" style="width: 100%;">
                 <div class="heading">User Details</div>
-                <table id="userTable">
-                    <!-- User details will be populated here dynamically -->
-                </table>
+                <div id="userDetailsContent"></div>
+                <div id="map" style="width: 100%; height: 400px;"></div>
             </div>
         </section>
-        
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var userForm = document.getElementById('userForm');
                 var userDetailsSection = document.getElementById('userDetails');
-                var userTable = document.getElementById('userTable');
-        
+                var userDetailsContent = document.getElementById('userDetailsContent');
+    
                 userForm.addEventListener('submit', function(event) {
                     event.preventDefault(); // Prevent form submission
-        
+    
                     // Get form data
                     var formData = new FormData(userForm);
-        
-                    // Create table rows to display user details
-                    var userDetailsHTML = '';
-                    for (var pair of formData.entries()) {
-                        userDetailsHTML += '<tr><td>' + pair[0] + '</td><td>' + pair[1] + '</td></tr>';
-                    }
-        
-                    // Append table rows to userTable
-                    userTable.innerHTML = userDetailsHTML;
-        
+    
+                    // Get specific form values
+                    var userName = formData.get('user_name');
+                    var userSource = formData.get('user_source');
+                    var userDestination = formData.get('user_destination');
+                    var userDate = formData.get('user_date');
+    
+                    // Create user details HTML
+                    var userDetailsHTML = '<div>Date: ' + userDate + '</div>';
+                    userDetailsHTML += '<div>Username: ' + userName + '</div>';
+                    userDetailsHTML += '<div style="font-size: 18px;">Route: ' + userSource + ' &#8594; ' + userDestination + '</div>';
+
+    
+                    // Update user details content
+                    userDetailsContent.innerHTML = userDetailsHTML;
+    
                     // Hide form and display user details
                     userForm.style.display = 'none';
                     userDetailsSection.style.display = 'block';
-                });
+                
+                // Initialize Google Maps
+                var sourceCoordinates = { lat: 19.114394813340247, lng: 72.86973389999999 }; // Example coordinates (San Francisco) 19.114394813340247, 72.86973389999999
+                var destinationCoordinates = { lat: 19.09691018219005, lng: 72.8517134195434 }; // Example coordinates (Los Angeles) 19.09691018219005, 72.8517134195434
+                initMap(sourceCoordinates, destinationCoordinates);
             });
-        </script>
+        });
+
+        function initMap(sourceCoordinates, destinationCoordinates) {
+            // Initialize map centered at the source location
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: sourceCoordinates // Center map at the source location
+            });
+
+            // Add markers for source and destination locations
+            addMarker(map, sourceCoordinates, 'Source');
+            addMarker(map, destinationCoordinates, 'Destination');
+        }
+
+        function addMarker(map, coordinates, label) {
+            var marker = new google.maps.Marker({
+                position: coordinates,
+                map: map,
+                label: label
+            });
+        }
+    </script>
+
+    <!-- Include Google Maps API with your API key -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIZhz6VDeakevYR4oTG_F5o8HsXiKeS7Q&callback=initMap">
+    </script>
 
     </main>
 
