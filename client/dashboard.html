@@ -1525,13 +1525,15 @@
                 // Get specific user details
                 var userName = "Aman Maurya";
                 var userSource = "23 Link Road Vile Parle, Mumbai, Maharashtra 400057";
-                var userDestination = "MMGV+9WR, Sheopur - Sawai Madhopur Rd, Sheopur, Madhya Pradesh 476337";
+                var userDestination = "Shop No 3, Padatani Complex, Maldad Rd, Suyog Colony, Sangamner, Maharashtra 422605";
                 var userDate = "2024-03-30";
+                var userContact = "9655456565";
         
                 // Create user details HTML
                 var userDetailsHTML = '<div>Date: ' + userDate + '</div>';
                 userDetailsHTML += '<div>Username: ' + userName + '</div>';
-                userDetailsHTML += '<div style="font-size: 18px;">Route: ' + userSource + ' &#8594; ' + userDestination + '</div>';
+                userDetailsHTML += '<div>Contact: ' + userContact + '</div>';
+                userDetailsHTML += '<div style="font-size: 18px;">From: ' + userSource + ' &#8594; '+ 'To: '+ userDestination + '</div>';
         
                 // Update user details content
                 userDetailsContent.innerHTML = userDetailsHTML;
@@ -1541,37 +1543,20 @@
         
                 // Initialize Google Maps
                 var sourceCoordinates = { lat: 19.099592556986597, lng: 72.85155812917141 }; // Mumbai
-                var destinationCoordinates = { lat: 25.676003102772174, lng: 76.69480421510106 }; // Madhya Pradesh
+                var destinationCoordinates = { lat: 19.57806649250728, lng: 74.20630444308405 }; // 19.57806649250728, 74.20630444308405
                 initMap(sourceCoordinates, destinationCoordinates);
             });
         
             function initMap(sourceCoordinates, destinationCoordinates) {
                 // Initialize map centered at the source location
                 var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 6,
+                    zoom: 8,
                     center: sourceCoordinates // Center map at the source location
                 });
         
                 // Add markers for source and destination locations
                 addMarker(map, sourceCoordinates, 'Source');
                 addMarker(map, destinationCoordinates, 'Destination');
-        
-                // Draw route line
-                var directionsService = new google.maps.DirectionsService();
-                var directionsRenderer = new google.maps.DirectionsRenderer();
-                directionsRenderer.setMap(map);
-                var request = {
-                    origin: sourceCoordinates,
-                    destination: destinationCoordinates,
-                    travelMode: 'DRIVING'
-                };
-                directionsService.route(request, function(result, status) {
-                    if (status == 'OK') {
-                        directionsRenderer.setDirections(result);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
-                    }
-                });
             }
         
             function addMarker(map, coordinates, label) {
