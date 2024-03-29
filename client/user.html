@@ -1566,20 +1566,19 @@
                         <textarea class="input" id="user_message" name="user_message" placeholder="Message" required></textarea>
                         <button type="submit" class="login-button">Submit</button>
                     </form>
-                </br>
-            </br>
                 </div>
             </div>
            
         </section>
     
-        <section id="userDetails" style="display: none;">
-            <div class="container" style="width: 100%;">
+        <section id="userDetails" style="display: none; position: absolute; top: 16.5%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px; background-color: #ffffff;">
+            <div class="containers" style="width: 100%; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box;">
                 <div class="heading">User Details</div>
                 <div id="userDetailsContent"></div>
                 <div id="map" style="width: 100%; height: 400px;"></div>
             </div>
         </section>
+        
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
