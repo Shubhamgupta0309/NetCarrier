@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>NetCarrier </title>
+    <title>NetCarrier - Login</title>
 
     <link rel="icon" href="./assets/icon.png" sizes="32x32" />
     <link rel="icon" href="./assets/icon.png" sizes="192x192" />
@@ -15,53 +15,63 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/fontawsom-all.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-    <body class="h-100">
-        <div class="container-fluid full-bg h-100">
-           <div class="container h-100">
-              
-               <div class="row no-margin">
-                   <div class="bg-layer  ">
-                       <form action="#">
-                        <div class="login-box row">
-                           <i class="fab fa-codepen"></i>
-                            <h3>User login</h3>
+<body class="h-100">
+    <div class="container-fluid full-bg h-100">
+        <div class="container h-100">
+            <div class="row no-margin">
+                <div class="bg-layer">
+                    <div class="login-box row">
+                        <i class="fab fa-codepen"></i>
+                        <h3>User login</h3>
+                        <form id="loginForm" action="/login" method="POST">
                             <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
-                              </div>
-                              <input type="text" class="form-control form-control-sm" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" name="email" id="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                             </div>
                             <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                              </div>
-                              <input type="text" class="form-control form-control-sm" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" class="form-control form-control-sm" name="password" id="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                             </div>
-
-                            
-                            <p>
-                            
-                            forget password ?</p>
-                            <button class="btn btn-default">Click to Login</button>
-                            
-                            <p class="no-c">Not a member yet? <a href="#">Create your Account</a></p>
-                        </div>
+                            <button type="submit" class="btn btn-default">Login</button>
+                            <p id="errorMessage" style="color: red; margin-top: 10px;"></p> <!-- Error message display -->
+                            <p>Forget password?</p>
+                            <p class="no-c">Not a member yet? <a href="Signup.html">Create your Account</a></p>
                         </form>
-                    </div>    
-               </div>
-              
-        
-           </div>
-            
+                    </div>
+                </div>
+            </div>
         </div>
-    </body>
+    </div>
 
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>        
-<script src="assets/js/script.js"></script>
-
+    <script>
+      $(document).ready(function () {
+          $('#loginForm').submit(function (event) {
+              event.preventDefault();
+              var formData = $(this).serialize();
+              $.ajax({
+                  type: "POST",
+                  url: "http://localhost:3000/login", // Update the URL to your server login endpoint
+                  data: formData,
+                  success: function (response) {
+                      console.log(response);
+                      alert('Login successful');
+                      window.location.href = 'index.html'; // Redirect to dashboard or any other page
+                  },
+                  error: function (xhr, status, error) {
+                      console.error(xhr.responseText);
+                      $('#errorMessage').text(xhr.responseText);
+                  }
+              });
+          });
+      });
+  </script>
+</body>
 
 </html>
