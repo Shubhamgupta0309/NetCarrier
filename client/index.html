@@ -898,43 +898,58 @@
          }
          }
       </style>
+
       <!-- end Simple Custom CSS and JS -->
       <!-- start Simple Custom CSS and JS -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script>
-         document.addEventListener('DOMContentLoaded', function() {
-             var currentUrl = window.location.href;
-         
-             if (currentUrl.includes('/he')) {
-                 var headerButtonContainer = document.getElementById('headerctabtn');
-         
-                 if (headerButtonContainer) {
-                     var headerButton = headerButtonContainer.querySelector('a');
-         
-                     if (headerButton) {
-                         headerButton.setAttribute('href', "login.html");
-                     }
-                 }
-             }
-         });
+          $(document).ready(function() {
+              var headerButtonContainer = $('#headerctabtn');
+      
+              // Function to create the login button
+              function createLoginButton() {
+                  headerButtonContainer.empty().append('<a href="#" id="loginBtn" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none;">Login</a>');
+      
+                  // On hover, change background color slightly for visual feedback
+                  headerButtonContainer.on('mouseenter', '#loginBtn', function() {
+                      $(this).css('background-color', '#0056b3');
+                  });
+      
+                  headerButtonContainer.on('mouseleave', '#loginBtn', function() {
+                      $(this).css('background-color', '#007bff');
+                  });
+      
+                  // Login functionality
+                  headerButtonContainer.on('click', '#loginBtn', function(e) {
+                      e.preventDefault();
+                      window.location.href = 'login.html';
+                  });
+              }
+      
+              var isLoggedIn = localStorage.getItem('isLoggedIn');
+              if (isLoggedIn === 'true') {
+                  // User is logged in, show the logout button
+                  var logoutButton = $('<a href="#" id="logoutBtn" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none;">Logout</a>');
+                  headerButtonContainer.empty().append(logoutButton);
+      
+                  // Logout functionality
+                  logoutButton.on('click', function() {
+                      localStorage.setItem('isLoggedIn', 'false');
+                      createLoginButton();
+                  });
+              } else {
+                  // User is not logged in, show the login button
+                  createLoginButton();
+              }
+          });
+      
+          function checkServerStatus() {
+              // Your checkServerStatus function
+          }
+      
+          $(window).on('load', checkServerStatus);
       </script>
-      <script>
-         function checkServerStatus() {
-             fetch('http://localhost:3000/api/data')
-             .then(response => {
-                 if (response.ok) {
-                     console.log('Server is connected.');
-                 } else {
-                     console.log('Server is not connected.');
-                 }
-             })
-             .catch(error => {
-                 console.error('Error connecting to server:', error);
-                 console.log('Server is not connected.');
-             });
-         }
- 
-         window.addEventListener('load', checkServerStatus);
-     </script>
+      
       <!-- end Simple Custom CSS and JS -->
       <!-- start Simple Custom CSS and JS -->
       <script>
@@ -989,7 +1004,6 @@
            for (var i = 0; i < elements.length; i++) {
              var element = document.querySelector(elements[i].selector);
          
-             // Проверяем, содержит ли текущий URL нужный путь
              if (currentURL.includes(elements[i].path)) {
                // Если содержит, то делаем display block
                element.style.display = 'block';
@@ -1403,7 +1417,8 @@
 													  <p class="elementor-icon-box-description">
 														 Connecting to NetCarrier's automatic platform offers logistics and transportation companies opportunities for saving resources and cutting costs. In addition, the system delivers an online tool for heavy fleet companies to calculate their CO2 emissions. The heavy vehicle industry is expected to demonstrate social and environmental responsibility, and to comply with new EU standards for reducing CO2 emissions by 2030. Here is where NetCarrier adds its unique solution. Quantifying greenhouse gas (GHG) emissions could provide possibilities for companies interested in carbon emission trading.
 														 <br><br>
-												  </p>
+														 <button class="btn default" style="background:transparent; border-color:#2CCEAB;"> <a href="https://www.trucknet.io/sdg" style="font-size:14px; font-weight:500; color:#2CCEAB; ">Read our sdg report</a></button>					
+													  </p>
 												   </div>
 												</div>
 											 </div>
