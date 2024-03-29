@@ -49,28 +49,34 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      $(document).ready(function () {
-          $('#loginForm').submit(function (event) {
-              event.preventDefault();
-              var formData = $(this).serialize();
-              $.ajax({
-                  type: "POST",
-                  url: "http://localhost:3000/login", // Update the URL to your server login endpoint
-                  data: formData,
-                  success: function (response) {
-                      console.log(response);
-                      alert('Login successful');
-                      window.location.href = 'index.html'; // Redirect to dashboard or any other page
-                  },
-                  error: function (xhr, status, error) {
-                      console.error(xhr.responseText);
-                      $('#errorMessage').text(xhr.responseText);
-                  }
-              });
-          });
-      });
-  </script>
+        $(document).ready(function () {
+            $('#loginForm').submit(function (event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/login",
+                    data: formData,
+                    success: function (response) {
+                        console.log(response);
+                        alert('Login successful');
+                        setUserLoggedIn(); // Call setUserLoggedIn() upon successful login
+                        window.location.href = 'index.html'; // Redirect to dashboard or any other page
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        $('#errorMessage').text(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        function setUserLoggedIn() {
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+    </script>
 </body>
+
 </html>
